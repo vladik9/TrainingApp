@@ -1,0 +1,29 @@
+.modalWrapper{  
+     display: flex;
+     justify-content: center;
+     flex-direction:column;
+     align-items: flex-start;
+   
+}
+.modalMainContent{
+     padding-left: 15px;
+  
+}
+
+.modalContent {
+     padding-left: 20px;
+
+}
+.infoModalStyleContainer {
+     width: 70%;
+     height: auto;
+     display: flex;
+     justify-content: center;
+     flex-direction: column;
+     background-color: lightgrey;
+}
+.warningMessage{
+ color: yellow;  
+ padding-right: 5px; 
+ 
+}

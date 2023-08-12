@@ -1,0 +1,14 @@
+.contentWraper{
+border: 2px solid yellow;
+border-radius: 10px;
+padding: 10px;
+margin: 10px;
+width: 300px;
+
+}
+.tileStyle{
+     text-align: center;
+}
+.exerciseSize{
+     width: 100px;
+}

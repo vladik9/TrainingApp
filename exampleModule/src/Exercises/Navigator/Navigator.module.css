@@ -1,0 +1,35 @@
+.navigatorElement {
+  border: 1px yellow solid;
+  width: 100px;
+  height: 50;
+  text-align: center;
+  padding: 10px;
+}
+.navigatorElement:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.navigatorElement:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.navigatorElement:hover {
+  
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.navigatorPosition {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.navigatorSelected {
+  background-color: yellow;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}

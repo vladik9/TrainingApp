@@ -1,0 +1,14 @@
+.iconStle {
+  font-size: 0.8em;
+}
+
+.exerciseRepetitions {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  bottom: 20px;
+}
+.elementSize {
+  width: 13rem;
+  
+}
