@@ -1,10 +1,10 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 export const userContext = createContext({
   isUserSignedIn: false,
+  setUserSignedIn: () => {},
   userToken: "",
   setUserToken: () => {},
-  setUserLoggedIn: () => {},
   handleUserSingIn: () => {},
   handleUserSingOut: () => {},
   handleUserSignUp: () => {},
@@ -14,11 +14,19 @@ export default function LoginContext(props) {
   const [userToken, setUserToken] = useState("");
   const handleUserSingOut = () => {};
 
+  //check using useEfect if we have token
+  useEffect(() => {
+    if (localStorage.getItem("training-token")) {
+      setUserSignedIn(true);
+      setUserToken(localStorage.getItem("training-token"));
+    }
+  }, []);
+
   const handleUserSingIn = async (data) => {
     console.log("in sing in");
     try {
       const response = await axios.post(
-        "http://localhost:8080/users/login",
+        "http://localhost:8080/users/singin",
         data
       );
       console.log(response);
@@ -31,10 +39,11 @@ export default function LoginContext(props) {
   const handleUserSignUp = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/users/singin",
+        "http://localhost:8080/users/singup",
         data
       );
       console.log(response);
+      setUserToken(response.data.token);
     } catch (error) {
       console.log(error);
     }

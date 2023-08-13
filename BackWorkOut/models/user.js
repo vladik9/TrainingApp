@@ -65,16 +65,15 @@ const userSchema = new mongoose.Schema({
 //   localField: "_id",
 //   foreignField: "owner",
 // });
+//this will act as a toString when an user instance is created
+userSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.password;
+  delete userObject.tokens;
 
-// userSchema.methods.toJSON = function () {
-//   const user = this;
-//   const userObject = user.toObject();
-
-//   delete userObject.password;
-//   delete userObject.tokens;
-
-//   return userObject;
-// };
+  return userObject;
+};
 
 //this is on an instance of a Model like user(instance)
 userSchema.methods.generateAuthToken = async function () {

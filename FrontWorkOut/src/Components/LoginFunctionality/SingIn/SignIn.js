@@ -12,10 +12,10 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Copyright from "../Copyright/Copyright.js";
-import LoginContext from "../LoginContext/LoginContext";
+import LoginContext from "../LoginContext/LoginContext.js";
 import validator from "validator";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { userContext } from "../LoginContext/LoginContext";
+import { userContext } from "../LoginContext/LoginContext.js";
 
 const defaultTheme = createTheme();
 

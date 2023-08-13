@@ -1,13 +1,7 @@
 import React from "react";
-import SignIn from "./Components/SingIn/SignIn";
-import SignUp from "./Components/SignUp/SignUp";
-import LoginContext from "./Components/LoginContext/LoginContext";
+import LoginFunctionality from "./Components/LoginFunctionality/LoginFunctionality";
 function App() {
-  return (
-    <LoginContext>
-      <SignIn />
-    </LoginContext>
-  );
+  return <LoginFunctionality />;
 }
 
 export default App;
