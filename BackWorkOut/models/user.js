@@ -5,11 +5,27 @@ const jwt = require("jsonwebtoken");
 // const Task = require("./task");
 
 const userSchema = new mongoose.Schema({
-  name: {
+  firstName: {
     type: String,
     required: true,
-    trim: true,
+    lowercase: true,
+    validate(value) {
+      if (!validator.isAlpha(value)) {
+        throw new Error("First Name is invalid");
+      }
+    },
   },
+  lastName: {
+    type: String,
+    required: true,
+    lowercase: true,
+    validate(value) {
+      if (!validator.isAlpha(value)) {
+        throw new Error("Last Name is invalid");
+      }
+    },
+  },
+
   email: {
     type: String,
     unique: true,
@@ -28,25 +44,17 @@ const userSchema = new mongoose.Schema({
     minlength: 7,
     trim: true,
     validate(value) {
-      if (value.toLowerCase().includes("password")) {
+      if (value.length <= 8)
+        throw new Error("Password should be 8 or more characters.");
+      if (value.toLowerCase().includes("password"))
         throw new Error('Password cannot contain "password"');
-      }
-    },
-  },
-  age: {
-    type: Number,
-    default: 0,
-    validate(value) {
-      if (value < 0) {
-        throw new Error("Age must be a postive number");
-      }
     },
   },
   tokens: [
     {
       token: {
         type: String,
-        required: true,
+        required: false,
       },
     },
   ],
@@ -68,16 +76,17 @@ const userSchema = new mongoose.Schema({
 //   return userObject;
 // };
 
-// userSchema.methods.generateAuthToken = async function () {
-//   const user = this;
-//   const token = jwt.sign({ _id: user._id.toString() }, "thisismynewcourse");
+//this is on an instance of a Model like user(instance)
+userSchema.methods.generateAuthToken = async function () {
+  const user = this;
+  const token = jwt.sign({ _id: user._id.toString() }, "thisismynewcourse");
 
-//   user.tokens = user.tokens.concat({ token });
-//   await user.save();
+  user.tokens = user.tokens.concat({ token });
+  await user.save();
 
-//   return token;
-// };
-
+  return token;
+};
+//this is on a Model like User(not instance)
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email });
 

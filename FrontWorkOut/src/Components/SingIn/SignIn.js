@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,24 +11,36 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import Copyright from "../Copyright/Copyright";
-import LoginPagesWrapper from "../LoginPagesWrapper/LoginPagesWrapper";
+import Copyright from "../Copyright/Copyright.js";
+import LoginContext from "../LoginContext/LoginContext";
+import validator from "validator";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { userContext } from "../LoginContext/LoginContext";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const { handleUserSingIn } = useContext(userContext);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const email = data.get("email");
+    const password = data.get("password");
+    if (!validator.isEmail(email) || password.length < 8) {
+      alert("Please enter a valid email and password");
+      return;
+    }
+    handleUserSingIn({ email, password });
+
     console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+      email: email,
+      password: password,
     });
   };
 
   return (
-    <LoginPagesWrapper>
+    <LoginContext>
       <ThemeProvider theme={defaultTheme}>
         <Grid container component="main" sx={{ height: "100vh" }}>
           <CssBaseline />
@@ -128,6 +140,6 @@ export default function SignIn() {
           </Grid>
         </Grid>
       </ThemeProvider>
-    </LoginPagesWrapper>
+    </LoginContext>
   );
 }

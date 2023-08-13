@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -12,23 +10,44 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Copyright from "../Copyright/Copyright";
-import LoginPagesWrapper from "../LoginPagesWrapper/LoginPagesWrapper";
+import LoginContext from "../LoginContext/LoginContext";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { userContext } from "../LoginContext/LoginContext";
+import validator from "validator";
 
 const defaultTheme = createTheme();
-
 export default function SignUp() {
+  const { handleUserSignUp } = useContext(userContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const firstName = data.get("firstName");
+    const lastName = data.get("lastName");
+    const email = data.get("email");
+    const password = data.get("password");
+
+    if (
+      !validator.isAlpha(firstName) &&
+      !validator.isAlpha(lastName) &&
+      !validator.isEmail(email) &&
+      !validator.isStrongPassword(password)
+    ) {
+      alert("Please fill out all fields");
+      return;
+    }
+
+    handleUserSignUp({ firstName, lastName, email, password });
+
     console.log({
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
     });
   };
 
   return (
-    <LoginPagesWrapper>
+    <LoginContext>
       <ThemeProvider theme={defaultTheme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -95,14 +114,6 @@ export default function SignUp() {
                     autoComplete="new-password"
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox value="allowExtraEmails" color="primary" />
-                    }
-                    label="I want to receive inspiration, marketing promotions and updates via email."
-                  />
-                </Grid>
               </Grid>
               <Button
                 type="submit"
@@ -124,6 +135,6 @@ export default function SignUp() {
           <Copyright sx={{ mt: 5 }} />
         </Container>
       </ThemeProvider>
-    </LoginPagesWrapper>
+    </LoginContext>
   );
 }
