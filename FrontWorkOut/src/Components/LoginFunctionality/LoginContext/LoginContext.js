@@ -23,13 +23,12 @@ export default function LoginContext(props) {
   }, []);
 
   const handleUserSingIn = async (data) => {
-    console.log("in sing in");
     try {
       const response = await axios.post(
         "http://localhost:8080/users/singin",
         data
       );
-      console.log(response);
+
       setUserToken(response.data.token);
     } catch (error) {
       console.log(error);
@@ -42,7 +41,6 @@ export default function LoginContext(props) {
         "http://localhost:8080/users/singup",
         data
       );
-      console.log(response);
       setUserToken(response.data.token);
     } catch (error) {
       console.log(error);

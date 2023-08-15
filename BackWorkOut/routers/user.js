@@ -45,7 +45,7 @@ router.post("/users/logout", auth, async (req, res) => {
     res.status(500).send();
   }
 });
-//logOut all users tha have this account logged-in
+//logOut all users that have this account logged-in
 router.post("/users/logoutAll", auth, async (req, res) => {
   try {
     req.user.tokens = [];

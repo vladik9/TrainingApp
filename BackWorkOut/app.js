@@ -2,7 +2,9 @@ const express = require("express");
 var cors = require("cors");
 
 const userRouter = require("./routers/user");
+const exerciseRouter = require("./routers/exercise");
 const User = require("./models/user");
+const Exercise = require("./models/exercise");
 require("./db/db.js");
 
 const PORT = process.env.PORT || 8080;
@@ -15,11 +17,14 @@ app.use(
     origin: "http://localhost:3000",
   })
 );
+//used to parse incoming requests as JSON objects
 app.use(express.json());
+//using router in main file
+app.use(exerciseRouter);
 app.use(userRouter);
 //for 404
 app.get("/*", async (req, res) => {
-  res.sendStatus(200);
+  res.sendStatus(404);
 });
 
 app.listen(PORT, () => {
