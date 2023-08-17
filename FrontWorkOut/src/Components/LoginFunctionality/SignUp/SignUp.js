@@ -14,10 +14,9 @@ import LoginContext from "../LoginContext/LoginContext";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { userContext } from "../LoginContext/LoginContext";
 import validator from "validator";
-import { useNavigate } from "react-router-dom";
+
 const defaultTheme = createTheme();
 export default function SignUp() {
-  const navigate = useNavigate();
   const { handleUserSignUp } = useContext(userContext);
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -126,13 +125,7 @@ export default function SignUp() {
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link
-                    href="#"
-                    variant="body2"
-                    onClick={() => {
-                      navigate("/singin");
-                    }}
-                  >
+                  <Link href="#" variant="body2">
                     Already have an account? Sign in
                   </Link>
                 </Grid>

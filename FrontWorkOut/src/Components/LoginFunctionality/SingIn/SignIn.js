@@ -16,13 +16,11 @@ import LoginContext from "../LoginContext/LoginContext.js";
 import validator from "validator";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { userContext } from "../LoginContext/LoginContext.js";
-import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
   const { handleUserSingIn } = useContext(userContext);
-  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -126,24 +124,12 @@ export default function SignIn() {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link
-                      href="#"
-                      variant="body2"
-                      onClick={() => {
-                        navigate("/resetpassword");
-                      }}
-                    >
+                    <Link href="#" variant="body2">
                       Forgot password?
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link
-                      href="#"
-                      variant="body2"
-                      onClick={() => {
-                        navigate("/singup");
-                      }}
-                    >
+                    <Link href="#" variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>
