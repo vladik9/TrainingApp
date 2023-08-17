@@ -45,4 +45,14 @@ router.get("/getExerciseByBodyPart/:id", async (req, res) => {
   }
 });
 
+router.post("/saveNewExercise", ath, async (req, res) => {
+  //cretating a new exercise record
+  const exercise = new Exercise({ ...req.body, owner: req.user._id });
+  try {
+    await exercise.save();
+  } catch (error) {
+    console.log("Error in saving an exercise" + error);
+  }
+});
+
 module.exports = router;
