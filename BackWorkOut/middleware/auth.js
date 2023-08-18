@@ -1,3 +1,4 @@
+//this file using connectiont to mongo database
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { AUTHSECRET } = require("../config");
