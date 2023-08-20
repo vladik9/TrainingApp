@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+export default function ResetPassword() {
   const { handleUserSingIn } = useContext(userContext);
   const navigate = useNavigate();
 
@@ -28,17 +28,14 @@ export default function SignIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
-    const password = data.get("password");
-    if (!validator.isEmail(email) || password.length < 8) {
-      alert("Please enter a valid email and password");
+    if (!validator.isEmail(email)) {
+      alert("Please enter a valid email");
       return;
     }
-    handleUserSingIn({ email, password });
-
     console.log({
       email: email,
-      password: password,
     });
+    alert("Email sent, fallow steps in order to restore your password");
   };
 
   return (
@@ -80,11 +77,8 @@ export default function SignIn() {
                 alignItems: "center",
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <LockOutlinedIcon />
-              </Avatar>
               <Typography component="h1" variant="h5">
-                Sign in
+                Forgot your password?
               </Typography>
               <Box
                 component="form"
@@ -97,24 +91,10 @@ export default function SignIn() {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="Registred email address"
                   name="email"
                   autoComplete="email"
                   autoFocus
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
                 />
                 <Button
                   type="submit"
@@ -122,20 +102,9 @@ export default function SignIn() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  Forgot your password
                 </Button>
                 <Grid container>
-                  <Grid item xs>
-                    <Link
-                      href="#"
-                      variant="body2"
-                      onClick={() => {
-                        navigate("/resetpassword");
-                      }}
-                    >
-                      Forgot password?
-                    </Link>
-                  </Grid>
                   <Grid item>
                     <Link
                       href="#"

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Exercise = require("./exercise");
+// const Task = require("./task");
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -59,16 +59,12 @@ const userSchema = new mongoose.Schema({
     },
   ],
 });
-//this is a virtual function that will act as connection between 2 Models
-userSchema.virtual("exercise", {
-  //reference in exercise Model
-  ref: "Exercise",
-  //localFiel to connect with
-  localField: "_id",
-  // foreign field to connect with in other Model
-  foreignField: "owner",
-});
 
+// userSchema.virtual("tasks", {
+//   ref: "Task",
+//   localField: "_id",
+//   foreignField: "owner",
+// });
 //this will act as a toString when an user instance is created
 userSchema.methods.toJSON = function () {
   const user = this;
