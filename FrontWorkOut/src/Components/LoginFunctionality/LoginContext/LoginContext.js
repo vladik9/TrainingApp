@@ -2,17 +2,17 @@ import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 export const userContext = createContext({
   isUserSignedIn: false,
-  setUserSignedIn: () => {},
+  setUserSignedIn: () => { },
   userToken: "",
-  setUserToken: () => {},
-  handleUserSingIn: () => {},
-  handleUserSingOut: () => {},
-  handleUserSignUp: () => {},
+  setUserToken: () => { },
+  handleUserSingIn: () => { },
+  handleUserSingOut: () => { },
+  handleUserSignUp: () => { },
 });
 export default function LoginContext(props) {
   const [isUserSignedIn, setUserSignedIn] = useState(false);
   const [userToken, setUserToken] = useState("");
-  const handleUserSingOut = () => {};
+  const handleUserSingOut = () => { };
 
   //check using useEfect if we have token
   useEffect(() => {
