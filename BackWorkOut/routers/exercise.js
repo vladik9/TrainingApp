@@ -3,6 +3,8 @@ const Exercise = require("../models/exercise");
 const auth = require("../middleware/auth");
 const axios = require("axios");
 const { TOKENKEY, HOST } = require("../resources/resources");
+const haveInitExerciseData = require("../middleware/initDataFromApi");
+const initDataFromApi = require("../middleware/initDataFromApi");
 const router = new express.Router();
 // ######################
 // ####Data base access##
@@ -43,6 +45,14 @@ router.get("/getExerciseByBodyPart/:id", async (req, res) => {
     console.error("Error in getting exercise data", error);
     res.send(500, error);
   }
+});
+
+
+
+//this endpoint will check if i have exercise data
+//need to think about name i use
+router.get("/checkInitDataInDb", initDataFromApi, (req, res) => {
+  console.log(" in main function");
 });
 
 module.exports = router;
