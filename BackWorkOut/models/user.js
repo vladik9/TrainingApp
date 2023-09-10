@@ -66,6 +66,16 @@ userSchema.virtual("week", {
   localField: "_id",
   foreignField: "owner",
 });
+// userSchema.virtual("day", {
+//   ref: "Day",
+//   localField: "_id",
+//   foreignField: "owner",
+// });
+// userSchema.virtual("exercise", {
+//   ref: "Exercise",
+//   localField: "_id",
+//   foreignField: "owner",
+// });
 
 //this will act as a toString when an user instance is created
 userSchema.methods.toJSON = function () {

@@ -1,6 +1,5 @@
 const express = require("express");
 var cors = require("cors");
-
 const userRouter = require("./routers/user");
 const exerciseRouter = require("./routers/exercise");
 const dayRouter = require("./routers/day");
@@ -24,11 +23,14 @@ app.use(
 );
 //used to parse incoming requests as JSON objects
 app.use(express.json());
+
 //using router in main file
 app.use(exerciseRouter);
 app.use(userRouter);
 app.use(weekRouter);
 app.use(dayRouter);
+
+
 //for 404
 app.get("/*", async (req, res) => {
   res.sendStatus(404);

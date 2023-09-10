@@ -8,12 +8,12 @@ const daySchema = new mongoose.Schema({
   target: { type: String, required: true, lowercase: true },
   equipment: { type: String, required: true, lowercase: true },
   repetitions: { type: String, required: true },
-  weightHistory: { type: String, required: true },
-  dayOfTheweek: {
+  weightHistory: { type: Array },
+  weekOwner: {
     ref: 'Week',
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-  }
+  },
 }
 
 
@@ -22,7 +22,7 @@ const daySchema = new mongoose.Schema({
 daySchema.virtual("exercise", {
   ref: "Exercise",
   localField: "_id",
-  foreignField: "weekAtribution",
+  foreignField: "dayOwner",
 });
 
 
@@ -34,12 +34,10 @@ daySchema.virtual("exercise", {
 // });
 //this will act as a toString when an exercise instance is created
 daySchema.methods.toJSON = function () {
-  const user = this;
-  const userObject = user.toObject();
-  delete userObject.password;
-  delete userObject.tokens;
-
-  return userObject;
+  const day = this;
+  const dayObject = day.toObject();
+  // delete userObject.user;
+  return dayObject;
 };
 
 

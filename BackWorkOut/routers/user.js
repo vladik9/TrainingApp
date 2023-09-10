@@ -40,9 +40,9 @@ router.post("/users/logout", auth, async (req, res) => {
     });
     await req.user.save();
 
-    res.send(200);
+    res.sendStatus(200);
   } catch (e) {
-    res.status(500).send();
+    res.sendStatus(500);
   }
 });
 //logOut all users that have this account logged-in
