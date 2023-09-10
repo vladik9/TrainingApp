@@ -3,7 +3,7 @@ import SignIn from "./SingIn/SignIn";
 import SignUp from "./SignUp/SignUp";
 import LoginContext from "./LoginContext/LoginContext";
 import { Route, Routes } from "react-router-dom";
-export default function LoginFunctionality() {
+export default function Login() {
   return (
     <LoginContext>
       <SignIn />

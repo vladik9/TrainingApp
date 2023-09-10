@@ -3,7 +3,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Copyright from "../../Components/LoginFunctionality/Copyright/Copyright.js";
+import Copyright from "../Login/Copyright/Copyright.js";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const defaultTheme = createTheme();

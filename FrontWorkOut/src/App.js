@@ -1,8 +1,7 @@
 import React from "react";
-import LoginFunctionality from "./Components/LoginFunctionality/LoginFunctionality";
-
+import Login from "./Components/Login/Login";
 function App() {
-  return <LoginFunctionality />;
+  return <Login />;
 }
 
 export default App;
