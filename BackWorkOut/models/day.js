@@ -9,7 +9,7 @@ const daySchema = new mongoose.Schema({
   equipment: { type: String, required: true, lowercase: true },
   repetitions: { type: String, required: true },
   weightHistory: { type: Array },
-  weekOwner: {
+  bindWeek: {
     ref: 'Week',
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -22,7 +22,7 @@ const daySchema = new mongoose.Schema({
 daySchema.virtual("exercise", {
   ref: "Exercise",
   localField: "_id",
-  foreignField: "dayOwner",
+  foreignField: "bindDay",
 });
 
 
@@ -39,11 +39,6 @@ daySchema.methods.toJSON = function () {
   // delete userObject.user;
   return dayObject;
 };
-
-
-
-
-
 
 const Day = mongoose.model("day", daySchema);
 

@@ -9,7 +9,7 @@ const exerciseSchema = new mongoose.Schema({
   equipment: { type: String, required: true, lowercase: true },
   repetitions: { type: String, required: true },
   weightHistory: { type: String, required: true },
-  dayOwner: {
+  bindDay: {
     ref: "Week",
     type: mongoose.Schema.Types.ObjectId,
     required: true,

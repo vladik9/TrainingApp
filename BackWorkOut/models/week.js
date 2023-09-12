@@ -3,12 +3,14 @@ const User = require("./user");
 //for date need to add validation just for current year or even close to month user is in
 const weekSchema = new mongoose.Schema({
   dateStart: {
-    type: Date, required: true, min: '2023-01-01',
-    max: '2023-10-10'
+    type: Date, required: true,
+    min: '2023-01-01',
+    max: '2024-12-31'
   },
   dateEnd: {
-    type: Date, required: true, min: '2023-01-01',
-    max: '2023-10-10'
+    type: Date, required: true,
+    min: '2023-01-01',
+    max: '2024-12-31'
   },
   owner: {
     ref: 'User',
@@ -21,7 +23,7 @@ const weekSchema = new mongoose.Schema({
 weekSchema.virtual("day", {
   ref: "Day",
   localField: "_id",
-  foreignField: "weekOwner",
+  foreignField: "bindWeek",
 });
 
 

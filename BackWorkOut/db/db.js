@@ -33,9 +33,8 @@ switch (OPTION) {
     {
       console.log("OK lets connect to cloud server");
       //cloud connection
-      //mongo atlas conectuion
-      const url = `mongodb+srv://adminTraining:${PASSWORD}@trainingcluster.j89bmoy.mongodb.net/?retryWrites=true&w=majority`;
-
+      //mongo atlas connection
+      const url = `mongodb+srv://adminTraining:${PASSWORD}@trainingcluster.8xgwa2r.mongodb.net/?retryWrites=true&w=majority`;
       try {
         mongoose
           .connect(url, {
