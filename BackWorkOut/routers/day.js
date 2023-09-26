@@ -6,7 +6,7 @@ const Day = require("../models/day");
 
 router.get("/day/:id", auth, async (req, res) => {
      try {
-          const existingDay = await Day.findOne({ _id: req.params.id });
+          const existingDay = await Day.findOne({ _id: req.params.id }).populate("bindWeek").exec();
           if (existingDay === null) {
                res.sendStatus(404);
                return;
@@ -30,7 +30,7 @@ router.post("/day/:id", auth, currentWeek, async (req, res) => {
 
 router.patch("/day/:id", auth, async (req, res) => {
 
-     const allowedOptions = ["dayName", "bodyPart", "image", "target", "equipment", "repetitions", "weightHistory"];
+     const allowedOptions = ["dayName", "bodyPart"];
      const updates = Object.keys(req.body);
      const isValidOperation = updates.every((update) => allowedOptions.includes(update));
      if (!isValidOperation) {

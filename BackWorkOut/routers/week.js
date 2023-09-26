@@ -7,9 +7,9 @@ const Day = require('../models/day');
 
 router.get('/allWeeks', auth, async (req, res) => {
      try {
-          const allWeekDays = await Week.find({ owner: req.user._id });
+          const allWeekDays = await Week.find({ owner: req.user._id }).populate("owner").exec();
           if (allWeekDays.length === 0) throw new Error("Don't have any weeks yet!");
-          res.send({ allWeekDays });
+          res.send(allWeekDays);
      } catch (err) { console.log(err); res.sendStatus(404); }
      //simple output  all days with attached exercise
 
@@ -34,9 +34,17 @@ router.post("/createAWeek", auth, async function (req, res) {
 
 router.get('/oneWeek/:id', auth, async (req, res) => {
      try {
-          const currentWeekDay = await Week.findOne({ _id: req.params.id, owner: req.user._id });
-          if (currentWeekDay === null) throw new Error("Can't find specified weekDay!");
-          res.send({ currentWeekDay });
+          const currentWeek = await Week.findOne({ _id: req.params.id, owner: req.user._id });
+          try {
+               await req.user.populate("week").execPopulate();
+          }
+          catch (err) { console.log(err); }
+          // const UpdatedWeek = await currentWeek.populate("bindDay").exec();
+          // console.log("🚀 ~ file: week.js:39 ~ router.get ~ UpdatedWeek:", UpdatedWeek);
+
+
+          if (currentWeek === null) throw new Error("Can't find specified weekDay!");
+          res.send({ currentWeek });
      } catch (err) { console.log(err); res.sendStatus(404); }
 }
 );
