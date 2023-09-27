@@ -4,7 +4,7 @@ const auth = require('../middleware/auth');
 const currentWeek = require('../middleware/currentWeek');
 const Day = require("../models/day");
 
-router.get("/day/:id", auth, async (req, res) => {
+router.get("/days/:id", auth, async (req, res) => {
      try {
           const existingDay = await Day.findOne({ _id: req.params.id });
           if (existingDay === null) {
@@ -19,7 +19,7 @@ router.get("/day/:id", auth, async (req, res) => {
      }
 }
 );
-router.post("/day/:id", auth, currentWeek, async (req, res) => {
+router.post("/days/:id", auth, currentWeek, async (req, res) => {
      const newDay = new Day({ ...req.body, bindWeek: req.week });
      try {
           await newDay.save();
@@ -28,7 +28,7 @@ router.post("/day/:id", auth, currentWeek, async (req, res) => {
 
 });
 
-router.patch("/day/:id", auth, async (req, res) => {
+router.patch("/days/:id", auth, async (req, res) => {
 
      const allowedOptions = ["dayName", "bodyPart", "image", "target", "equipment", "repetitions", "weightHistory"];
      const updates = Object.keys(req.body);
@@ -47,7 +47,7 @@ router.patch("/day/:id", auth, async (req, res) => {
 );
 
 
-router.delete("/day/:id", auth, async (req, res) => {
+router.delete("/days/:id", auth, async (req, res) => {
      try {
           const existingDay = await Day.findOneAndDelete({ _id: req.params.id });
           res.sendStatus(200);

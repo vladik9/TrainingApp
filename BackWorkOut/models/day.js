@@ -4,19 +4,12 @@ const mongoose = require("mongoose");
 const daySchema = new mongoose.Schema({
   dayName: { type: String, required: true, lowercase: true },
   bodyPart: { type: String, required: true, lowercase: true },
-  image: { type: String, required: true },
-  target: { type: String, required: true, lowercase: true },
-  equipment: { type: String, required: true, lowercase: true },
-  repetitions: { type: String, required: true },
-  weightHistory: { type: Array },
   bindWeek: {
     ref: 'Week',
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
 }
-
-
 );
 
 daySchema.virtual("exercise", {
