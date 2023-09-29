@@ -2,18 +2,33 @@ const express = require('express');
 const router = express.Router();
 const Week = require('../models/week');
 const auth = require('../middleware/auth');
-const Day = require('../models/day');
+const existingWeek = require('../middleware/existingWeek');
 
 
 router.get('/weeks/all', auth, async (req, res) => {
      try {
           const allWeekDays = await Week.find({ owner: req.user._id });
           if (allWeekDays.length === 0) throw new Error("Don't have any weeks yet!");
-          res.send({ allWeekDays });
+          Promise.all(allWeekDays.map((week) => week.populate('owner')))
+               .then((arrayOfValues) => {
+                    res.send(arrayOfValues);
+               })
+               .catch((error) => {
+                    throw new Error("Don't have any weeks yet!" + error);
+               });
      } catch (err) { console.log(err); res.sendStatus(404); }
-     //simple output  all days with attached exercise
+     //simple output all days with attached exercise
 
 });
+//this route will get existing week and will populate with specific data for owner
+router.get('/weeks/one/:id', auth, existingWeek, async (req, res) => {
+     try {
+          req.week.populate('owner').then(updateWeek => { res.send(updateWeek); }).catch((error) => { throw new Error("Don't have any weeks yet!" + error); });
+
+
+     } catch (err) { console.log(err); res.sendStatus(404); }
+}
+);
 
 router.post("/week", auth, async function (req, res) {
      const newWeek = new Week(
@@ -30,16 +45,6 @@ router.post("/week", auth, async function (req, res) {
 
 });
 
-
-
-router.get('/weeks/one/:id', auth, async (req, res) => {
-     try {
-          const currentWeekDay = await Week.findOne({ _id: req.params.id, owner: req.user._id });
-          if (currentWeekDay === null) throw new Error("Can't find specified weekDay!");
-          res.send({ currentWeekDay });
-     } catch (err) { console.log(err); res.sendStatus(404); }
-}
-);
 router.patch("/weeks/:id", auth, async (req, res) => {
      const allowedOptions = ["dateStart", "dateEnd"];
      const updates = Object.keys(req.body);
@@ -66,18 +71,5 @@ router.delete("/weeks/:id", auth, async (req, res) => {
      } catch (err) { console.log(err); res.sendStatus(404); }
 });
 
-//this is experimental and will be fixed in the future
-router.get("/weeks/allDays/:id", auth, async (req, res) => {
-
-     try {
-          const allWeekData = await Day.find({ bindWeek: req.params.id });
-          console.log("🚀 ~ file: week.js:74 ~ router.get ~ allWeekData:", allWeekData);
-
-
-
-     }
-     catch (err) { console.log(err); res.sendStatus(404); }
-
-});
 module.exports = router;
 

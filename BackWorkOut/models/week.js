@@ -23,7 +23,7 @@ const weekSchema = new mongoose.Schema({
 weekSchema.virtual("day", {
   ref: "Day",
   localField: "_id",
-  foreignField: "bindWeek",
+  foreignField: "bindedWeek",
 });
 
 
@@ -33,7 +33,8 @@ weekSchema.methods.toJSON = function () {
   const week = this;
   const weekObject = week.toObject();
 
-  delete weekObject.owner;
+  delete weekObject.owner.tokens;
+  delete weekObject.owner.password;
   return weekObject;
 };
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const currentWeek = require('../middleware/currentWeek');
+const existingWeek = require('../middleware/existingWeek');
 const Day = require("../models/day");
 
 router.get("/days/:id", auth, async (req, res) => {
@@ -11,7 +11,8 @@ router.get("/days/:id", auth, async (req, res) => {
                res.sendStatus(404);
                return;
           }
-          res.send({ existingDay });
+          existingDay.populate('bindedWeek').then((response) =>
+               res.send(response)).catch(() => { throw new Error("Don't have any weeks yet!"); });
      }
      catch (err) {
           console.log(err);
@@ -19,8 +20,8 @@ router.get("/days/:id", auth, async (req, res) => {
      }
 }
 );
-router.post("/days/:id", auth, currentWeek, async (req, res) => {
-     const newDay = new Day({ ...req.body, bindWeek: req.week });
+router.post("/days/:id", auth, existingWeek, async (req, res) => {
+     const newDay = new Day({ ...req.body, bindedWeek: req.week });
      try {
           await newDay.save();
           res.send(newDay);

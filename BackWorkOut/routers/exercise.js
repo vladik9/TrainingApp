@@ -10,7 +10,7 @@ const router = new express.Router();
 // ####Data base access##
 //token key
 //get body parts for next request
-router.get("/getBodyParts", async (req, res) => {
+router.get("/bodyParts", async (req, res) => {
   const bodyParts = [
     "back",
     "cardio",
@@ -26,7 +26,7 @@ router.get("/getBodyParts", async (req, res) => {
   res.send(bodyParts);
 });
 //this endpoint should get paggination
-router.get("/getExerciseByBodyPart/:id", async (req, res) => {
+router.get("/exerciseByBodyPart/:id", async (req, res) => {
   let response;
   const options = {
     method: "GET",

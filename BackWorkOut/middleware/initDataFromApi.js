@@ -19,18 +19,32 @@ const initDataFromApi = async (req, res, next) => {
     };
 
     try {
-      const response = await axios.request(options);
-      //here we inserting docs
-      for (const item in response) {
+      const allExercises = await axios.request(options);
+      console.log(allExercises);
+
+      Promise.all(allExercises.map(exercise => {
         const newExercise = new ExercisesArray([
           {
-            name: response[item].name,
-            description: response[item].description,
-            image: response[item].image,
+            name: exercise[item].name,
+            description: exercise[item].description,
+            image: exercise[item].image,
           },
         ]);
-        await newExercise.save();
-      }
+      })).then(response => { });
+
+
+      //here we inserting docs
+      // for (const item in response) {
+
+      //   const newExercise = new ExercisesArray([
+      //     {
+      //       name: response[item].name,
+      //       description: response[item].description,
+      //       image: response[item].image,
+      //     },
+      //   ]);
+      //   await newExercise.save();
+      // }
 
       console.log(response.data);
     } catch (error) {
@@ -67,7 +81,7 @@ const initDataFromApi = async (req, res, next) => {
   // } catch (error) {
   //   console.log(error);
   // }
-
+  next();
 
 };
 

@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const daySchema = new mongoose.Schema({
   dayName: { type: String, required: true, lowercase: true },
   bodyPart: { type: String, required: true, lowercase: true },
-  bindWeek: {
+  bindedWeek: {
     ref: 'Week',
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -29,7 +29,6 @@ daySchema.virtual("exercise", {
 daySchema.methods.toJSON = function () {
   const day = this;
   const dayObject = day.toObject();
-  // delete userObject.user;
   return dayObject;
 };
 
