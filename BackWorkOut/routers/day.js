@@ -6,12 +6,12 @@ const Day = require("../models/day");
 
 router.get("/days/:id", auth, async (req, res) => {
      try {
-          const existingDay = await Day.findOne({ _id: req.params.id });
-          if (existingDay === null) {
+          const selectedDay = await Day.findOne({ _id: req.params.id });
+          if (selectedDay === null) {
                res.sendStatus(404);
                return;
           }
-          existingDay.populate('bindedWeek').then((response) =>
+          selectedDay.populate('bindedWeek').then((response) =>
                res.send(response)).catch(() => { throw new Error("Don't have any weeks yet!"); });
      }
      catch (err) {
@@ -50,7 +50,7 @@ router.patch("/day/:id", auth, async (req, res) => {
 
 router.delete("/days/:id", auth, async (req, res) => {
      try {
-          const existingDay = await Day.findOneAndDelete({ _id: req.params.id });
+          const selectedDay = await Day.findOneAndDelete({ _id: req.params.id });
           res.sendStatus(200);
      } catch (err) {
           console.log(err);

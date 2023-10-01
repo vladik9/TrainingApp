@@ -36,7 +36,7 @@ router.post("/week", auth, async function (req, res) {
      );
      try {
           await newWeek.save();
-          res.send({ newWeek });
+          res.send(newWeek);
 
      }
      catch (err) {

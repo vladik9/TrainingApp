@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 // const Task = require("./task");
 
 const exerciseSchema = new mongoose.Schema({
-  name: { type: String, required: true, lowercase: true },
-  bodyPart: { type: String, required: true, lowercase: true },
+  name: { type: String, required: true, },
+  bodyPart: { type: String, required: true, },
   image: { type: String, required: true },
-  target: { type: String, required: true, lowercase: true },
-  equipment: { type: String, required: true, lowercase: true },
+  target: { type: String, required: true, },
+  equipment: { type: String, required: true, },
   repetitions: { type: String, required: true },
-  weightHistory: { type: String, required: true },
+  weightHistory: { type: Array, required: true },
   bindedDay: {
     ref: "Week",
     type: mongoose.Schema.Types.ObjectId,
