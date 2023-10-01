@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Week = require('../models/week');
 const auth = require('../middleware/auth');
-const existingWeek = require('../middleware/existingWeek');
+const selectedWeek = require('../middleware/selectedWeek');
 
 
 router.get('/weeks/all', auth, async (req, res) => {
@@ -21,7 +21,7 @@ router.get('/weeks/all', auth, async (req, res) => {
 
 });
 //this route will get existing week and will populate with specific data for owner
-router.get('/weeks/one/:id', auth, existingWeek, async (req, res) => {
+router.get('/weeks/one/:id', auth, selectedWeek, async (req, res) => {
      try {
           req.week.populate('owner').then(updateWeek => { res.send(updateWeek); }).catch((error) => { throw new Error("Don't have any weeks yet!" + error); });
 

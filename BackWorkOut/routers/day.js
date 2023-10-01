@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const existingWeek = require('../middleware/existingWeek');
+const selectedWeek = require('../middleware/selectedWeek');
 const Day = require("../models/day");
 
 router.get("/days/:id", auth, async (req, res) => {
@@ -20,7 +20,7 @@ router.get("/days/:id", auth, async (req, res) => {
      }
 }
 );
-router.post("/days/:id", auth, existingWeek, async (req, res) => {
+router.post("/days/:id", auth, selectedWeek, async (req, res) => {
      const newDay = new Day({ ...req.body, bindedWeek: req.week });
      try {
           await newDay.save();
@@ -29,7 +29,7 @@ router.post("/days/:id", auth, existingWeek, async (req, res) => {
 
 });
 
-router.patch("/days/:id", auth, async (req, res) => {
+router.patch("/day/:id", auth, async (req, res) => {
 
      const allowedOptions = ["dayName", "bodyPart", "image", "target", "equipment", "repetitions", "weightHistory"];
      const updates = Object.keys(req.body);
@@ -42,7 +42,7 @@ router.patch("/days/:id", auth, async (req, res) => {
           if (dayToUPdate === null) throw new Error("Don't have any days yet!");
           updates.forEach((update) => dayToUPdate[update] = req.body[update]);
           await dayToUPdate.save();
-          res.send({ dayToUPdate });
+          res.send(dayToUPdate);
      } catch (err) { console.log(err); res.sendStatus(400); }
 }
 );

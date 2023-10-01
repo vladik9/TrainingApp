@@ -26,8 +26,6 @@ weekSchema.virtual("day", {
   foreignField: "bindedWeek",
 });
 
-
-
 //this will act as a toString when an exercise instance is created
 weekSchema.methods.toJSON = function () {
   const week = this;

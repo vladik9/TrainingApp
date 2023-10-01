@@ -9,7 +9,7 @@ const exerciseSchema = new mongoose.Schema({
   equipment: { type: String, required: true, lowercase: true },
   repetitions: { type: String, required: true },
   weightHistory: { type: String, required: true },
-  bindDay: {
+  bindedDay: {
     ref: "Week",
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -26,32 +26,18 @@ const exerciseSchema = new mongoose.Schema({
 // });
 //this will act as a toString when an exercise instance is created
 exerciseSchema.methods.toJSON = function () {
-  const user = this;
-  const userObject = user.toObject();
-  delete userObject.password;
-  delete userObject.tokens;
+  const exercise = this;
+  const exerciseObject = exercise.toObject();
+  delete exerciseObject.password;
+  delete exerciseObject.tokens;
 
-  return userObject;
+  return exerciseObject;
 };
 
 //this is on an instance of a Model like user(instance)
 exerciseSchema.methods.generateAuthToken = async function () {
 
 };
-
-
-
-//we can have pre and post events occurs
-// Hash the plain text password before saving
-exerciseSchema.pre("save", async function (next) {
-  const user = this;
-
-  if (user.isModified("password")) {
-    user.password = await bcrypt.hash(user.password, 8);
-  }
-
-  next();
-});
 
 // Delete user tasks when user is removed
 exerciseSchema.pre("remove", async function (next) {

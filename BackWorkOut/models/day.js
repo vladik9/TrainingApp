@@ -15,7 +15,7 @@ const daySchema = new mongoose.Schema({
 daySchema.virtual("exercise", {
   ref: "Exercise",
   localField: "_id",
-  foreignField: "bindDay",
+  foreignField: "bindedDay",
 });
 
 
