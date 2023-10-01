@@ -14,9 +14,8 @@ const exerciseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
+
 }
-
-
 );
 
 // userSchema.virtual("tasks", {
@@ -30,13 +29,8 @@ exerciseSchema.methods.toJSON = function () {
   const exerciseObject = exercise.toObject();
   delete exerciseObject.password;
   delete exerciseObject.tokens;
-
+  delete exerciseObject.bindedDay;
   return exerciseObject;
-};
-
-//this is on an instance of a Model like user(instance)
-exerciseSchema.methods.generateAuthToken = async function () {
-
 };
 
 // Delete user tasks when user is removed

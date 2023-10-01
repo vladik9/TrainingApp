@@ -12,7 +12,7 @@
                     "<node_internals>/**"
                ],
                "program": "${workspaceFolder}/app.js",
-               "env": {"PORT": "8080",  "OPTION": "CLOUD",  
+               "env": {"PORT": "8080",  "OPTION": "LOCAL",  
                // "OPTION": "LOCAL"
           },
      

@@ -38,7 +38,6 @@ router.get("/exercise/:id", async (req, res) => {
 
 //save an updated exerise from user
 router.post("/exercise/:id", auth, selectedDay, async (req, res) => {
-  console.log(req.day);
   try {
     const exercise = new Exercises({ ...req.body, "bindedDay": req.day._id });
     await exercise.save();
@@ -57,12 +56,22 @@ router.get("/exerciseById/:id", auth, async (req, res) => {
     console.log(err);
   }
 });
-
-router.get('/getDayExercises/:id', auth, async (req, res) => {
-  console.log("getDayExercises");
+//this is not working need to be fixed
+router.get('/getDayExercises/:id', auth, selectedDay, async (req, res) => {
+  console.log(req.query.limit);
   try {
-    const exercises = await Exercises.find({ bindedDay: req.params.id });
-    console.log(exercises);
+
+    // const exercises = await Exercises.findOne({ bindedDay: req.params.id });
+    const exercises = await Exercises.find({ bindedDay: req.params.id },
+    ).populate({
+      path: "name",
+      options: { perDocumentLimit: 1, limit: 1 },
+      limit: 1,
+    }).exec();
+
+
+
+
     res.send(exercises);
   } catch (err) {
     res.sendStatus(404);
