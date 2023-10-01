@@ -19,7 +19,7 @@ switch (OPTION) {
   case "LOCAL":
     //local connection
     try {
-      console.log("OK lets connect to local server!");
+      console.log("OK let's connect to local server!");
 
       mongoose.connect("mongodb://127.0.0.1:27017/training-app", {
         useNewUrlParser: true,
